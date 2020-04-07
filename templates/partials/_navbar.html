@@ -1,0 +1,55 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0 sticky-top">
+  <div class="container">
+      <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+              <li 
+                {% if '/' == request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                  <a href="{% url 'index' %}" class="nav-link">Accueil</a>
+              </li>
+              <li 
+                {% if 'about' in request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                <a href="{% url 'about' %}" class="nav-link">A propos</a>
+              </li>
+              <li 
+                {% if 'Informations' in request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                <a class="nav-link" href="">Informations</a>
+              </li>
+          </ul>
+
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item px-2">
+                  <a href="" class="nav-link">
+                    <i class="fas fa-user-plus"></i>
+                    Enregistrer
+                  </a>
+              </li>
+              <li class="nav-item px-2">
+                  <a href="" class="nav-link">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Connecter
+                  </a>
+              </li>
+          </ul> 
+      </div>
+  </div>
+</nav> 
