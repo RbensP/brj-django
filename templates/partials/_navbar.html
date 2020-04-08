@@ -26,13 +26,13 @@
                 <a href="{% url 'about' %}" class="nav-link">A propos</a>
               </li>
               <li 
-                {% if 'Informations' in request.path %}
+                {% if 'informations' in request.path %}
                   class="nav-item active px-2"
                 {% else %}
                   class="nav-item px-2"
                 {% endif %}
               >
-                <a class="nav-link" href="">Informations</a>
+                <a class="nav-link" href="informations">Plus d'Informations</a>
               </li>
           </ul>
 
