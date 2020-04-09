@@ -2,61 +2,35 @@
 
 {% block content %} 
 <div class="container">
-    <div class="media mt-5 mb-3 w-75">
-        <div class="media-body">
-            <h5 class="mt-0">
-                Information Title
-            </h5>
-            <hr>
-            La BRJ dans un souci d’améliorer et de perfectionner la gestion de la file d’attente de son service
-            de livraison de Certificat de bonne vie et mœurs, en vue d’arriver à répondre aux différentes
-            demandes quotidiennes, cherche à se renforcer au moyen de la technologie.
-            En effet, lors de processus d’obtention d’un certificat de bonne vie et mœurs, la file d’attente peut
-            atteindre jusqu’à mille personnes dans une journée durant les périodes de pique. Malgré les
-            efforts déployés et les progrès qui s’en sont suivi, la BRJ sent qu’elle son travail
-            d’éclaircissements du dossier aux près des différentes organisations, institutions et ambassades
-            n’a pas encore son effectivité. En effet pour remplir un formulaire de demande de certificats les
-            citoyens passent en moyenne 4 heures de temps dans l’enceinte de la DCPJ sous le soleil et une
-            chaleur accablante. Le processus d’obtention d’un document si important semble prendre une
-            éternité. Un sondage a permis d’évaluer autour de 30% seulement le nombre de cas traite.
-        </div>
+    {% if infos %}
+        {% for info in infos %}
+            <div class="media mt-5 mb-3 w-75">
+                {% if info.photo %}
+                        <img 
+                            class="d-flex mr-3 mt-1"
+                            src="{{ info.photo.url }}" 
+                            alt=""
+                            height="200"
+                        >
+                    {% endif %}
+                <div class="media-body">
+                    <h5>
+                        {{ info.title }}
+                    </h5>
+                    <p>{{ info.date_created }}</p>
+                    <hr>
+                    <p>{{ info.content }}</p>
+                    <a href="{% url 'information' info.id %}">Read More</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+    <div class="col-md-12">
+        <p>
+            Aucune Information disponible
+        </p>
     </div>
-    <div class="media mt-5 mb-3 w-75">
-        <div class="media-body">
-            <h5 class="mt-0">
-                Information Title
-            </h5>
-            La BRJ dans un souci d’améliorer et de perfectionner la gestion de la file d’attente de son service
-            de livraison de Certificat de bonne vie et mœurs, en vue d’arriver à répondre aux différentes
-            demandes quotidiennes, cherche à se renforcer au moyen de la technologie.
-            En effet, lors de processus d’obtention d’un certificat de bonne vie et mœurs, la file d’attente peut
-            atteindre jusqu’à mille personnes dans une journée durant les périodes de pique. Malgré les
-            efforts déployés et les progrès qui s’en sont suivi, la BRJ sent qu’elle son travail
-            d’éclaircissements du dossier aux près des différentes organisations, institutions et ambassades
-            n’a pas encore son effectivité. En effet pour remplir un formulaire de demande de certificats les
-            citoyens passent en moyenne 4 heures de temps dans l’enceinte de la DCPJ sous le soleil et une
-            chaleur accablante. Le processus d’obtention d’un document si important semble prendre une
-            éternité. Un sondage a permis d’évaluer autour de 30% seulement le nombre de cas traite.
-        </div>
-    </div>
-    <div class="media mt-5 mb-3 w-75">
-        <div class="media-body">
-            <h5 class="mt-0">
-                Information Title
-            </h5>
-            La BRJ dans un souci d’améliorer et de perfectionner la gestion de la file d’attente de son service
-            de livraison de Certificat de bonne vie et mœurs, en vue d’arriver à répondre aux différentes
-            demandes quotidiennes, cherche à se renforcer au moyen de la technologie.
-            En effet, lors de processus d’obtention d’un certificat de bonne vie et mœurs, la file d’attente peut
-            atteindre jusqu’à mille personnes dans une journée durant les périodes de pique. Malgré les
-            efforts déployés et les progrès qui s’en sont suivi, la BRJ sent qu’elle son travail
-            d’éclaircissements du dossier aux près des différentes organisations, institutions et ambassades
-            n’a pas encore son effectivité. En effet pour remplir un formulaire de demande de certificats les
-            citoyens passent en moyenne 4 heures de temps dans l’enceinte de la DCPJ sous le soleil et une
-            chaleur accablante. Le processus d’obtention d’un document si important semble prendre une
-            éternité. Un sondage a permis d’évaluer autour de 30% seulement le nombre de cas traite.
-        </div>
-    </div>
+    {% endif %}
 </div>
 
 {% endblock %}

@@ -1,7 +1,19 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
+
+from .models import Information
 
 def index(request):
-    return render(request, 'informations/informations.html')
+    informations = Information.objects.order_by('-date_created').filter(is_published=True)
+    data = {
+        'infos': informations
+    }
 
-def information(request):
-    return render(request, 'informations/information.html')
+    return render(request, 'informations/informations.html', data)
+
+def information(request, info_id):
+    information = get_object_or_404(Information, pk=info_id)
+    data = {
+        'info': information
+    }
+    
+    return render(request, 'informations/information.html', data)
