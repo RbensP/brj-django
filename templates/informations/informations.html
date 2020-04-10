@@ -6,16 +6,16 @@
 <div class="container">
     {% if infos %}
         {% for info in infos %}
-            <div class="media mt-5 mb-3 w-75">
-                {% if info.photo %}
-                        <img 
-                            class="d-flex mr-3 mt-1"
-                            src="{{ info.photo.url }}" 
-                            alt=""
-                            height="200"
-                        >
-                    {% endif %}
+            <div class="media mt-5 mb-3" style="width: 60%;">
                 <div class="media-body">
+                    {% if info.photo %}
+                            <img 
+                                class="d-flex mr-3 mt-1"
+                                src="{{ info.photo.url }}" 
+                                alt=""
+                                height="200"
+                            >
+                        {% endif %}
                     <h5>
                         {{ info.title }}
                     </h5>

@@ -4,21 +4,21 @@
 <div class="container">
     {% if infos %}
         {% for info in infos %}
-            <div class="media mt-5 mb-3 w-75">
-                {% if info.photo %}
-                        <img 
-                            class="d-flex mr-3 mt-1"
-                            src="{{ info.photo.url }}" 
-                            alt=""
-                            height="200"
-                        >
-                    {% endif %}
+            <div class="media mt-5 mb-3" style="width: 60%;">
                 <div class="media-body">
-                    <h5>
+                    {% if info.photo %}
+                            <img 
+                                class="d-flex mr-3 mt-1"
+                                src="{{ info.photo.url }}" 
+                                alt=""
+                                height="200"
+                            >
+                        {% endif %}
+                    <h5 class="my-1">
                         {{ info.title }}
                     </h5>
-                    <p>{{ info.date_created }}</p>
-                    <hr>
+                    <p class="my-1">{{ info.date_created }}</p>
+                    <hr class="m-0">
                     <p>{{ info.content }}</p>
                     <a href="{% url 'information' info.id %}">Read More</a>
                 </div>
