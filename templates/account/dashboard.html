@@ -1,0 +1,56 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block content %} 
+{% if user.is_authenticated %}
+  <section id="dashboard" class="py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>Bienvenue {{ user.last_name }}</h2>
+          <p>Voici les informations relatives à votre compte</p>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Key</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Nom</td>
+                <td>{{ user.first_name }}</td>
+              </tr>
+              <tr>
+                <td>Prénom</td>
+                <td>{{ user.last_name }}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>{{ user.email }}</td>
+              </tr>
+              {% if user.cin %}
+              <tr>
+                <td>CIN</td>
+                <td>{{ user.cin }}</td>
+              </tr>
+              {% endif %}
+              {% if user.nif %}
+              <tr>
+                <td>NIF</td>
+                <td>{{ user.nif }}</td>
+              </tr>
+              {% endif %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+{% else %}
+<div class="container text-center">
+  <p>Veuillez vous connecter</p>
+</div>
+{% endif %}
+{% endblock %}

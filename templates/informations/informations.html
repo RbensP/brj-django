@@ -16,11 +16,11 @@
                                 height="200"
                             >
                         {% endif %}
-                    <h5>
-                        {{ info.title }}
-                    </h5>
-                    <p>{{ info.date_created }}</p>
-                    <hr>
+                        <h5 class="my-1">
+                            {{ info.title }}
+                        </h5>
+                        <p class="my-1">{{ info.date_created }}</p>
+                        <hr class="m-0">
                     <p>{{ info.content }}</p>
                     <a href="{% url 'information' info.id %}">Read More</a>
                 </div>

@@ -142,3 +142,4 @@ MESSAGE_TAGS = {
 }
 
 AUTH_USER_MODEL = 'account.CustomUser'
+AUTHENTICATION_BACKENDS = ['account.backends.EmailBackend',]

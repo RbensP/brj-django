@@ -34,9 +34,46 @@
               >
                 <a class="nav-link" href="{% url 'informations' %}">Plus d'Informations</a>
               </li>
-          </ul>
+              {% if user.is_authenticated %}
+              <li
+                {% if 'formulaire' in request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                  <a href="{% url 'formulaire' %}" class="nav-link">
+                    Formulaire
+                  </a>
+              </li>
+              {% endif %}
+            </ul>
 
           <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+              <li
+                {% if 'dashboard' in request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                  <a href="{% url 'dashboard' %}" class="nav-link">
+                    Dashboard
+                  </a>
+              </li>
+              <li class="nav-item mr-3">
+                <a href="javascript:{document.getElementById('logout').submit()}" 
+                  class="nav-link">
+                  <i class="fas fa-sign-out-alt"></i>
+                  Logout
+                </a>
+                <form action="{% url 'logout' %}" method="POST" id="logout">
+                  {% csrf_token %}
+                  <input type="hidden">
+                </form>
+              </li>
+            {% else %}
               <li
                 {% if 'register' in request.path %}
                   class="nav-item active px-2"
@@ -61,6 +98,7 @@
                     Connecter
                   </a>
               </li>
+            {% endif %}
           </ul> 
       </div>
   </div>
