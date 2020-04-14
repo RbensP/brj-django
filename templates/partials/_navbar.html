@@ -17,15 +17,6 @@
                   <a href="{% url 'index' %}" class="nav-link">Accueil</a>
               </li>
               <li 
-                {% if 'about' in request.path %}
-                  class="nav-item active px-2"
-                {% else %}
-                  class="nav-item px-2"
-                {% endif %}
-              >
-                <a href="{% url 'about' %}" class="nav-link">A propos</a>
-              </li>
-              <li 
                 {% if 'informations' in request.path %}
                   class="nav-item active px-2"
                 {% else %}
@@ -33,6 +24,15 @@
                 {% endif %}
               >
                 <a class="nav-link" href="{% url 'informations' %}">Plus d'Informations</a>
+              </li>
+              <li 
+                {% if 'about' in request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                <a href="{% url 'about' %}" class="nav-link">A propos</a>
               </li>
               {% if user.is_authenticated %}
               <li
@@ -59,7 +59,7 @@
                 {% endif %}
               >
                   <a href="{% url 'dashboard' %}" class="nav-link">
-                    Dashboard
+                    Mon Compte
                   </a>
               </li>
               <li class="nav-item mr-3">

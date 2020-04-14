@@ -2,7 +2,74 @@
 
 {% load static %}
 
-{% block content %}
-<h1>Formulaire</h1>
+{% block content %} 
 
+<section id="formulaire class="bg-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 mx-auto">
+                <h4 class="my-2">
+                    Formulaire
+                </h4>
+                <form action="{% url 'formulaire' %}" method="POST" class="py-2 ">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="last_name">Addresse:</label>
+                        <table class="table">
+                            <tr>
+                                <td>Departement:</td>
+                                <td>
+                                    <select name="state">
+                                        <option value="Artibonite">Artibonite</option>
+                                        <option value="Ouest">Ouest</option>
+                                        <option value="Cap-Haitien">Cap-Haitien</option>
+                                        <option value="Nord">Nord</option>
+                                        <option value="Nord-Est">Nord-Est</option>
+                                        <option value="Nord-Ouest">Nord-Ouest</option>
+                                        <option value="Centre">Centre</option>
+                                        <option value="Nippes">Nippes</option>
+                                        <option value="Sud">Sud</option>
+                                        <option value="Sud-Est">Sud-Est</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="city" class="form-control" placeholder="Ville" required>                  
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="street" class="form-control" placeholder="Rue" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="street_number" class="form-control" placeholder="Numero" required>
+                    </div>
+                    <div class="form-group mt-1">
+                        <label for="time">Vous vivez dans cette ville depuis:</label>
+                        <table class="table">
+                            <tr>
+                                <td>
+                                    <select name="time_number">
+                                        {% for number in numbers %}
+                                        <option value="{{ number }}">{{ number }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="time_interval" >
+                                        <option value="Jours">Jours</option>
+                                        <option value="Semaines">Semaines</option>
+                                        <option value="Mois">Mois</option>
+                                        <option value="Années">Années</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <input type="submit" value="Envoyer" class="btn btn-secondary btn-block">
+              </form>
+        </div>
+      </div>
+    </div>
+</section>
 {% endblock %}
