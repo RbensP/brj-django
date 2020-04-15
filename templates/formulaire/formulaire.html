@@ -4,7 +4,7 @@
 
 {% block content %} 
 
-<section id="formulaire class="bg-light py-4">
+<section id="formulaire" class="bg-light py-4">
     <div class="container">
       <div class="row">
         <div class="col-md-6 mx-auto">
@@ -20,16 +20,9 @@
                                 <td>Departement:</td>
                                 <td>
                                     <select name="state">
-                                        <option value="Artibonite">Artibonite</option>
-                                        <option value="Ouest">Ouest</option>
-                                        <option value="Cap-Haitien">Cap-Haitien</option>
-                                        <option value="Nord">Nord</option>
-                                        <option value="Nord-Est">Nord-Est</option>
-                                        <option value="Nord-Ouest">Nord-Ouest</option>
-                                        <option value="Centre">Centre</option>
-                                        <option value="Nippes">Nippes</option>
-                                        <option value="Sud">Sud</option>
-                                        <option value="Sud-Est">Sud-Est</option>
+                                        {% for departement in departements %}
+                                        <option value="{{ departement }}">{{ departement }}</option>
+                                        {% endfor %}
                                     </select>
                                 </td>
                             </tr>

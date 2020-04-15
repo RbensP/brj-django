@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+import re
 from django.contrib.auth import get_user_model, authenticate, login, logout
 User = get_user_model()
-import re
+from formulaire.models import Formulaire
 
 def register(request):
     if request.method == 'POST':
@@ -68,7 +69,6 @@ def login_view(request):
         user = authenticate(username=email, password=password)
         if user is not None:
             login(request, user)
-            # messages.success(request, 'Connecté')
             return redirect('dashboard')
         else:
             messages.error(request, 'Email ou Password incorrect')
@@ -78,10 +78,18 @@ def login_view(request):
         return render(request, 'account/login.html')
 
 def dashboard(request):
-    return render(request, 'account/dashboard.html')
+    try:
+        formulaire = Formulaire.objects.get(user_id=request.user.id)
+    except Formulaire.DoesNotExist:
+        formulaire = None
+
+    context = {
+        'formulaire': formulaire
+    }
+
+    return render(request, 'account/dashboard.html', context)
 
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        # messages.success(request, 'Déconnecté')
         return redirect('index')
