@@ -63,8 +63,10 @@ def render_pdf_view(request):
             }
             
             return Render.render('formulaire/formulaire_pdf_template.html', context)
+        else:
+            return redirect('formulaire')
     else:
-        return redirect('formulaire')
+        return redirect('login')
 
 def render_pdf_download(request):
     if request.user.is_authenticated:
@@ -82,5 +84,7 @@ def render_pdf_download(request):
             }
             
             return Render.render_for_download('formulaire/formulaire_pdf_template.html', context)
+        else:
+            return redirect('formulaire')
     else:
-        return redirect('formulaire')
+        return redirect('login')

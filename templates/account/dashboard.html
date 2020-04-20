@@ -11,17 +11,23 @@
           <h2>Bienvenue {{ user.last_name }}</h2>
           <div id="img_profil" class="mt-1"></div>
           {% if formulaire %}
-          <div id="links_container" class="mt-4">
-            <a href="{% url 'formulaire_pdf' %}">
-              Voir Formulaire
-            </a>
-            <a href="{% url 'formulaire_pdf_download' %}">
-              Télécharger Formulaire
-            </a>
-          </div> 
+            <div id="links_container" class="mt-4">
+              <a href="{% url 'formulaire_pdf' %}">
+                Voir Formulaire
+              </a>
+              <a href="{% url 'formulaire_pdf_download' %}">
+                Télécharger Formulaire
+              </a>
+            </div> 
+          {% endif %}
+          {% if jour_rendezvous %}
+            <div class="d-flex">
+              <h6 class="mr-2">Rendez-vous:</h6>
+              <span>{{ jour_rendezvous.day }}</span>
+            </div>
           {% endif %}
         </div>
-        <div id="account_info" class="col-md-6" style="text-align: center;">
+        <div id="account_info" class="col-md-6">
           <p>Voici les informations relatives à votre compte</p>
           <table class="table">
             <thead>

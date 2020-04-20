@@ -46,6 +46,17 @@
                     Formulaire
                   </a>
               </li>
+              <li
+                {% if 'rendezvous' in request.path %}
+                  class="nav-item active px-2"
+                {% else %}
+                  class="nav-item px-2"
+                {% endif %}
+              >
+                  <a href="{% url 'rendez_vous' %}" class="nav-link">
+                    Rendez-vous
+                  </a>
+              </li>
               {% endif %}
             </ul>
 

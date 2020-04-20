@@ -2,35 +2,86 @@
 
 {% block content %} 
 <div class="container">
-    {% if infos %}
-        {% for info in infos %}
-            <div class="media mt-5 mb-3" style="width: 60%;">
-                <div class="media-body">
-                    {% if info.photo %}
-                            <img 
-                                class="d-flex mr-3 mt-1"
-                                src="{{ info.photo.url }}" 
-                                alt=""
-                                height="200"
+    <div class="row">
+        <div class="col-md-8">
+            {% if infos %}
+                {% for info in infos %}
+                    <div class="media mt-5 mb-3">
+                        <div class="media-body">
+                            {% if info.photo %}
+                                <img 
+                                    class="d-flex mr-3 mt-1"
+                                    src="{{ info.photo.url }}" 
+                                    alt=""
+                                    height="200"
+                                >
+                            {% endif %}
+                            <h5 class="my-1">
+                                {{ info.title }}
+                            </h5>
+                            <p class="my-1">{{ info.date_created }}</p>
+                            <hr class="m-0">
+                            <p>{{ info.content }}</p>
+                            <a href="{% url 'information' info.id %}">Read More</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+            <div class="col-md-12">
+                <p>
+                    Pas d'Informations disponibles
+                </p>
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <div class="mt-5 ml-5">
+                <h1>Rendez vous</h1>
+                <table>
+                    {% if jours %}
+                        {% for jour in jours %}
+                        <tr>
+                            <td class="btn btn-dark date mx-5 my-2"
+                                data-toggle="modal" 
+                                data-target="#toConfModal"
+                                data-url="{% url 'jour_rendezvous' jour.id %}"
+                                >{{ jour.day }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+        <div class="modal fade" 
+            id="toConfModal" 
+            tabindex="-1" role="dialog"
+            aria-labelledby="toConfModalLabel"
+            aria-hidden="true"
+            >
+            <div class="modal-dialog" role="document"> 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Confirmer Rendez-vous</h5>
+                        <button 
+                            class="close" 
+                            type="button" 
+                            data-dismiss="modal"
+                            aria-labelledby="Close"
                             >
-                        {% endif %}
-                    <h5 class="my-1">
-                        {{ info.title }}
-                    </h5>
-                    <p class="my-1">{{ info.date_created }}</p>
-                    <hr class="m-0">
-                    <p>{{ info.content }}</p>
-                    <a href="{% url 'information' info.id %}">Read More</a>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Clicker sur Confirmer pour continuer. Si vous aviez déjà un rendez-vous, il sera remplacé automatiquement
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-light" type="button" data-dismiss="modal">Annuler</button>
+                        <button href="" id="confirm" class="btn btn-dark">Confirmer</button>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
-    {% else %}
-    <div class="col-md-12">
-        <p>
-            Aucune Information disponible
-        </p>
+        </div>
     </div>
-    {% endif %}
 </div>
-
 {% endblock %}

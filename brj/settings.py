@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'informations.apps.InformationsConfig',
     'formulaire.apps.FormulaireConfig',
     'account.apps.AccountConfig',
+    'rendezvous.apps.RendezvousConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

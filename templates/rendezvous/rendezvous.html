@@ -1,0 +1,52 @@
+{% extends 'base.html' %} 
+
+{% block content %} 
+<div class="container">
+    <div class="col-md-4">
+        <h1>Rendez vous</h1>
+        <table>
+            {% if jours %}
+                {% for jour in jours %}
+                <tr>
+                    <td class="btn btn-dark date mx-5 my-2"
+                        data-toggle="modal" 
+                        data-target="#toConfModal"
+                        data-url="{% url 'jour_rendezvous' jour.id %}"
+                        >{{ jour.day }}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+    </div>
+</div>
+<div class="modal fade" 
+            id="toConfModal" 
+            tabindex="-1" role="dialog"
+            aria-labelledby="toConfModalLabel"
+            aria-hidden="true"
+            >
+            <div class="modal-dialog" role="document"> 
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5>Confirmer Rendez-vous</h5>
+                        <button 
+                            class="close" 
+                            type="button" 
+                            data-dismiss="modal"
+                            aria-labelledby="Close"
+                            >
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Clicker sur Confirmer pour continuer. Si vous aviez déjà un rendez-vous, il sera remplacé automatiquement
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-light" type="button" data-dismiss="modal">Annuler</button>
+                        <button href="" id="confirm" class="btn btn-dark">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -1,14 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from datetime import date, timedelta
 
 from informations.models import Information
+from rendezvous.models import JourRendezVous
 
 def index(request):
-    data = Information.objects.order_by('-date_created').filter(is_published=True)[:3]
-    informations = {
-        'infos': data
+    informations = Information.objects.order_by('-date_created').filter(is_published=True)[:3]
+    today = date.today()
+    end = today + timedelta(days=7)
+    jours = JourRendezVous.objects.exclude(number=0).filter(day__range=[today, end])
+
+    data = {
+        'infos': informations,
+        'jours': jours
     }
-    return render(request, 'pages/index.html', informations)
+    return render(request, 'pages/index.html', data)
 
 def about(request):
     return render(request, 'pages/about.html')

@@ -4,6 +4,7 @@ import re
 from django.contrib.auth import get_user_model, authenticate, login, logout
 User = get_user_model()
 from formulaire.models import Formulaire
+from rendezvous.models import RendezVous, JourRendezVous
 
 def register(request):
     if request.method == 'POST':
@@ -82,9 +83,18 @@ def dashboard(request):
         formulaire = Formulaire.objects.get(user_id=request.user.id)
     except Formulaire.DoesNotExist:
         formulaire = None
+        
+    try:
+        rendezvous = RendezVous.objects.get(user_id=request.user.id)
+    except RendezVous.DoesNotExist:
+        formulaire = None
+    
+    if rendezvous is not None:
+        jour = JourRendezVous.objects.get(id=rendezvous.jour_id)
 
     context = {
-        'formulaire': formulaire
+        'formulaire': formulaire,
+        'jour_rendezvous': jour
     }
 
     return render(request, 'account/dashboard.html', context)
