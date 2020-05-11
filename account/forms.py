@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from .models import CustomUser
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 class AddUserForm(forms.ModelForm):
     """
@@ -50,3 +50,8 @@ class UpdateUserForm(forms.ModelForm):
     def clean_password(self):
 # Password can't be changed in the admin
         return self.initial["password"]
+
+
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=100)
+    file = forms.FileField()

@@ -1,10 +1,12 @@
-from django.shortcuts import render, redirect
-from django.contrib import messages
-import re
 from django.contrib.auth import get_user_model, authenticate, login, logout
-User = get_user_model()
-from formulaire.models import Formulaire
 from rendezvous.models import RendezVous, JourRendezVous
+from django.shortcuts import render, redirect
+from formulaire.models import Formulaire
+from django.contrib import messages
+from .forms import UploadFileForm
+from datetime import date
+User = get_user_model()
+import re
 
 def register(request):
     if request.method == 'POST':
@@ -29,7 +31,7 @@ def register(request):
                 else:
                     cleaned_num = re.sub(r"\s", "", cin_or_nif)
 
-                    if re.fullmatch(r"\d{10}", cleaned_num) == None and re.fullmatch(r"\d{3}-\d{3}-\d{4}", cleaned_num) == None:
+                    if re.fullmatch(r"\d{10}", cleaned_num) == None and re.fullmatch(r"\d{3}-\d{3}-\d{3}-\d{1}", cleaned_num) == None:
                         messages.error(request, 'CIN ou NIF saisi incorrect')
                         return redirect('register')
                     else:
@@ -41,7 +43,7 @@ def register(request):
                                 cin = cleaned_num
                                 nif = ''
 
-                        if re.fullmatch(r"\d{3}-\d{3}-\d{4}", cleaned_num):
+                        if re.fullmatch(r"\d{3}-\d{3}-\d{3}-\d{1}", cleaned_num):
                             if User.objects.filter(nif=cleaned_num).exists():
                                 messages.error(request, 'NIF saisi déja enregistré')
                                 return redirect('register')
@@ -79,27 +81,55 @@ def login_view(request):
         return render(request, 'account/login.html')
 
 def dashboard(request):
-    try:
-        formulaire = Formulaire.objects.get(user_id=request.user.id)
-    except Formulaire.DoesNotExist:
-        formulaire = None
-        
-    try:
-        rendezvous = RendezVous.objects.get(user_id=request.user.id)
-    except RendezVous.DoesNotExist:
-        formulaire = None
-    
-    if rendezvous is not None:
-        jour = JourRendezVous.objects.get(id=rendezvous.jour_id)
+    if request.user.is_authenticated:
+        try:
+            formulaire = Formulaire.objects.get(user_id=request.user.id)
+        except Formulaire.DoesNotExist:
+            formulaire = None
+            
+        try:
+            rendezvous = RendezVous.objects.get(user_id=request.user.id)
+        except RendezVous.DoesNotExist:
+            rendezvous = None
 
-    context = {
-        'formulaire': formulaire,
-        'jour_rendezvous': jour
-    }
+        jour = None
+        if rendezvous is not None:
+            jour = JourRendezVous.objects.get(id=rendezvous.jour_id)
 
-    return render(request, 'account/dashboard.html', context)
+            if jour.day <= date.today():
+                jour = None
+
+        context = {
+            'formulaire': formulaire,
+            'jour_rendezvous': jour
+        }
+
+        return render(request, 'account/dashboard.html', context)
+    else:
+        return redirect('login')
 
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
         return redirect('index')
+
+def edit_photo(request):
+    if request.user.is_authenticated:
+        return render(request, 'account/edit_photo.html')
+    else:
+        return redirect('login')
+       
+def upload_photo(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            # form = UploadFileForm(request.POST, request.FILES)
+            # if form.is_valid():
+            user = User.objects.get(id=request.user.id)
+            user.photo = request.FILES['photo']
+            user.save()
+                
+            return redirect('dashboard')
+            # else:
+            #     return redirect('photo')
+        else:
+            return redirect('login')

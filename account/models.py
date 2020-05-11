@@ -1,8 +1,8 @@
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone
+from django.db import models
 
 from .account_manager import CustomUserManager
 
@@ -11,7 +11,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
     cin = models.CharField(max_length=10, blank=True)
-    nif = models.CharField(max_length=10, blank=True)
+    nif = models.CharField(max_length=13, blank=True)
+    photo = models.ImageField(upload_to='account_photos', blank=True, default=None)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     date_joined = models.DateTimeField(default=timezone.now)

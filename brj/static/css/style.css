@@ -25,12 +25,30 @@ html, body{
 #img_profil{
     height: 200px; 
     width: 200px; 
-    border-radius: 50%; 
-    background-color: darkgray;
+    border-radius: 50%;
 }
 
+#img_profil_container{
+    display: flex;
+    height: 200px; 
+    width: 200px;
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    border: solid 1px #000000
+}
 #links_container{
     display: flex; 
     width: 300px; 
     justify-content: space-between;
+}
+
+tr, td, th{
+    border: none;
+}
+
+@media screen and (max-width: 768px){
+    #account_info{
+        margin-top: 20px;
+    }
 }

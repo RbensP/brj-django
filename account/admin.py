@@ -1,8 +1,7 @@
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
-
-from .models import CustomUser
 from .forms import AddUserForm, UpdateUserForm
+from django.contrib import admin
+from .models import CustomUser
 
 class CustomUserAdmin(BaseUserAdmin):
     form = UpdateUserForm

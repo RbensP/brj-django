@@ -1,0 +1,26 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block content %} 
+{% if user.is_authenticated %}
+    <div class="container" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+          <div class="mt-2" style="display: flex; height: 200px; width: 200px; justify-content: center; align-items: center;">
+                {% if user.photo %}
+                    <img id="img_profil" src="{{ user.photo.url }}" alt="">
+                {% else %}  
+                    <i class="fas fa-user" style="font-size: larger;"></i>
+                {% endif %}
+          </div>
+          <form action="{% url 'upload' %}" method="POST" enctype="multipart/form-data" class="d-flex">
+                {% csrf_token %}
+              <input type="file" name="photo">
+              <button type="submit" class="btn btn-light ml-5">Envoyer</button>
+          </form>
+        </div>
+{% else %}
+<div class="container text-center">
+  <p>Veuillez vous connecter</p>
+</div>
+{% endif %}
+{% endblock %}

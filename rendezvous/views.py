@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from datetime import date, timedelta
-from django.contrib.auth import get_user_model
-from django.db.models import F
 from rendezvous.models import JourRendezVous, RendezVous
+from django.contrib.auth import get_user_model
 from formulaire.models import Formulaire
+from datetime import date, timedelta
+from django.db.models import F
+from datetime import date
 User = get_user_model()
 
 def index(request):
@@ -27,7 +28,18 @@ def set_rendezvous(request, jour_id):
             formulaire = None
 
         if formulaire is not None:
-            RendezVous.objects.filter(user_id=request.user.id).delete()
+            try:
+                old_rdv = RendezVous.objects.get(user_id=request.user.id)
+            except RendezVous.DoesNotExist:
+                old_rdv = None
+
+            if old_rdv is not None:
+                old_jour = JourRendezVous.objects.get(rdv.jour_id)
+
+                if old_jour.day >= date.today():
+                    old_jour.number = F('number') + 1
+
+                rdv.delete()
 
             rendezvous = RendezVous.objects.create(user=user, jour=jour)
             rendezvous.save()

@@ -35,22 +35,22 @@
             {% endif %}
         </div>
         <div class="col-md-4">
-            <div class="mt-5 ml-5">
-                <h1>Rendez vous</h1>
-                <table>
+            <div id="rendezvous" class="mt-5 ml-3">
+                <h1 class="ml-3">Rendez vous</h1>
+                <div style="width: 300px; display: flex; flex-wrap: wrap;">
                     {% if jours %}
                         {% for jour in jours %}
-                        <tr>
-                            <td class="btn btn-dark date mx-5 my-2"
+                            <button class="btn btn-dark date ml-3 my-2"
                                 data-toggle="modal" 
                                 data-target="#toConfModal"
                                 data-url="{% url 'jour_rendezvous' jour.id %}"
                                 >{{ jour.day }}
-                            </td>
-                        </tr>
+                            </button>
                         {% endfor %}
+                    {% else %}
+                        <p class="m-2">Aucun rendez-vous disponible</p>
                     {% endif %}
-                </table>
+                </div>
             </div>
         </div>
         <div class="modal fade" 
