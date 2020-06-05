@@ -9,9 +9,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #Load env variables
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-DEBUG = False
+# DEBUG = False
 
-ALLOWED_HOSTS = ['13.59.128.203']
+# ALLOWED_HOSTS = ['13.59.128.203']
 
 DATABASES = {
     'default': {
