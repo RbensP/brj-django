@@ -1,5 +1,4 @@
 
-from brj.settings import *
 import os
 
 from dotenv import load_dotenv
@@ -13,7 +12,6 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 DEBUG = False
 
 ALLOWED_HOSTS = ['13.59.128.203']
-
 
 DATABASES = {
     'default': {

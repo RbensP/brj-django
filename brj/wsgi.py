@@ -19,10 +19,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 from django.core.wsgi import get_wsgi_application
 
-if os.getenv('ENV') == 'prod':
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'brj.settings_prod'
-else:
-    os.environ['DJANGO_SETTINGS_MODULE'] = 'brj.settings'
+os.environ.setdefault('DJANGO_SETTINGS_MODULE',  'brj.settings')
 
 
 application = get_wsgi_application()
